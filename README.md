@@ -1,1 +1,1 @@
-# node-note-taker
+# Node Note Taker
