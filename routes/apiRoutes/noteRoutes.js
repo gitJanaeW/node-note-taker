@@ -19,4 +19,4 @@ router.post('/notes', ({body}, res) => {
     const note = createNote(body, JSON.parse(notes));
 });
 
-// module.exports = router; PUT THIS BACK IF IT DOESN'T WORK
+module.exports = router;
