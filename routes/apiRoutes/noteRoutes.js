@@ -4,6 +4,7 @@ const {v4: uuidv4} = require('uuid');
 const {notes} = require('../../db/notes.json');
 const { validateNote, createNote } = require('../../lib/notes');
 
+// NOT WORKING
 // api to get db/notes.json and send info to front end
 router.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, "../../db/notes.json"));
