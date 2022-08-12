@@ -4,7 +4,6 @@ const router = require('express').Router();
 const notes = require('../../db/notes.json');
 const {validateNote, createNote} = require('../../lib/notes');
 
-// NOT WORKING
 // api to get db/notes.json and send info to front end
 router.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, "../../db/notes.json"));
@@ -17,23 +16,23 @@ router.post('/notes', ({body}, res) => {
         return;
     }
     const note = createNote(body, notes);
+    fs.writeFileSync(path.join(__dirname, '../../db/notes.json'),
+        JSON.stringify(note), null, 2);
 });
 
 router.delete('/notes/:id', (req, res) => {
-    params = [req.params.id];
+    console.log("req.params.id", req.params.id);
+    console.log("notes", notes);
     if (!req.params.id) {
         res.status(500).json({error: res.message});
         return;
     }
-    for (var i = 0; i < notes.length; i++) {
-        if (notes[i].id === req.params.id){
-            notes.splice(i, 1);
-            console.log(notes);
-            fs.writeFileSync(path.join(__dirname, '../../db/notes.json'),
-            JSON.stringify(notes), null, 2);
-            return;
-        }
-    }
+    const newNotes = notes.filter(note => {
+        return note.id !== req.params.id;
+    });
+    console.log("newNotes", newNotes);
+    fs.writeFileSync(path.join(__dirname, '../../db/notes.json'),
+        JSON.stringify(newNotes), null, 2);
     console.log(notes[0]);
     res.json({
         message: 'deleted',
