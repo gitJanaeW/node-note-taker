@@ -1,8 +1,8 @@
 const path = require('path');
 const router = require('express').Router();
 const {v4: uuidv4} = require('uuid');
-const {notes} = require('../../db/notes.json');
-const { validateNote, createNote } = require('../../lib/notes');
+const notes = require('../../db/notes.json');
+const {validateNote, createNote} = require('../../lib/notes');
 
 // NOT WORKING
 // api to get db/notes.json and send info to front end
@@ -18,7 +18,7 @@ router.post('/notes', ({body}, res) => {
     }
     console.log("post body:", body);
     // body.id = uuidv4;
-    const note = createNote(body, JSON.parse(notes));
+    const note = createNote(body, notes);
 });
 
 module.exports = router;
