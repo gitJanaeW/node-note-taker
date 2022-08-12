@@ -16,6 +16,7 @@ router.post('/notes', ({body}, res) => {
         res.status(400).send('Note not properly formatted');
         return;
     }
+    console.log("post body:", body);
     // body.id = uuidv4;
     const note = createNote(body, JSON.parse(notes));
 });

@@ -1,7 +1,12 @@
-[
+{
+  "notes": [
     {
-        "title":"Do this",
-        "note":"Make sure you do this",
-        "id": 0
+      "title": "Do this",
+      "text": "Do this thing"
+    },
+    {
+      "title": "erog",
+      "text": "skogs"
     }
-]
+  ]
+}
