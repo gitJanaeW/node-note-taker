@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const router = require('express').Router();
 const notes = require('../../db/notes.json');
@@ -20,16 +21,24 @@ router.post('/notes', ({body}, res) => {
 
 router.delete('/notes/:id', (req, res) => {
     params = [req.params.id];
-    if (!req.body.id || !req.params.id) {
+    if (!req.params.id) {
         res.status(500).json({error: res.message});
         return;
     }
-    else {
-        res.json({
-            message: 'deleted',
-            id: req.params.id
-        });
+    for (var i = 0; i < notes.length; i++) {
+        if (notes[i].id === req.params.id){
+            notes.splice(i, 1);
+            console.log(notes);
+            fs.writeFileSync(path.join(__dirname, '../../db/notes.json'),
+            JSON.stringify(notes), null, 2);
+            return;
+        }
     }
+    console.log(notes[0]);
+    res.json({
+        message: 'deleted',
+        id: req.params.id
+    });
 });
 
 module.exports = router;
