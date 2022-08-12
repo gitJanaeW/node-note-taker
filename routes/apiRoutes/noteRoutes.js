@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const router = require('express').Router();
-const notes = require('../../db/notes.json');
+let notes = require('../../db/notes.json');
 const {validateNote, createNote} = require('../../lib/notes');
 
 // api to get db/notes.json and send info to front end
@@ -15,6 +15,7 @@ router.post('/notes', ({body}, res) => {
         res.status(400).send('Note not properly formatted');
         return;
     }
+    
     const note = createNote(body, notes);
     fs.writeFileSync(path.join(__dirname, '../../db/notes.json'),
         JSON.stringify(note), null, 2);
@@ -30,10 +31,11 @@ router.delete('/notes/:id', (req, res) => {
     const newNotes = notes.filter(note => {
         return note.id !== req.params.id;
     });
+    notes = newNotes;
     console.log("newNotes", newNotes);
     fs.writeFileSync(path.join(__dirname, '../../db/notes.json'),
         JSON.stringify(newNotes), null, 2);
-    console.log(notes[0]);
+    console.log("post sync notes", notes);
     res.json({
         message: 'deleted',
         id: req.params.id
