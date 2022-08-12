@@ -1,6 +1,5 @@
 const path = require('path');
 const router = require('express').Router();
-const {v4: uuidv4} = require('uuid');
 const notes = require('../../db/notes.json');
 const {validateNote, createNote} = require('../../lib/notes');
 
@@ -16,9 +15,21 @@ router.post('/notes', ({body}, res) => {
         res.status(400).send('Note not properly formatted');
         return;
     }
-    console.log("post body:", body);
-    // body.id = uuidv4;
     const note = createNote(body, notes);
+});
+
+router.delete('/notes/:id', (req, res) => {
+    params = [req.params.id];
+    if (!req.body.id || !req.params.id) {
+        res.status(500).json({error: res.message});
+        return;
+    }
+    else {
+        res.json({
+            message: 'deleted',
+            id: req.params.id
+        });
+    }
 });
 
 module.exports = router;
