@@ -1,12 +1,10 @@
-{
-  "notes": [
-    {
-      "title": "Do this",
-      "text": "Do this thing"
-    },
-    {
-      "title": "erog",
-      "text": "skogs"
-    }
-  ]
-}
+[
+  {
+    "title": "Do this",
+    "text": "Do this thing"
+  },
+  {
+    "title": "erog",
+    "text": "skogs"
+  }
+]
