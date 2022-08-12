@@ -15,7 +15,6 @@ router.post('/notes', ({body}, res) => {
         res.status(400).send('Note not properly formatted');
         return;
     }
-    
     const note = createNote(body, notes);
     fs.writeFileSync(path.join(__dirname, '../../db/notes.json'),
         JSON.stringify(note), null, 2);
